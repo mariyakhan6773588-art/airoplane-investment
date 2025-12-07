@@ -1,0 +1,203 @@
+ 
+1. `index.html` (Dashboard - Home)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    nav a { margin-right: 15px; text-decoration: none; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel Dashboard</h1>
+  <nav>
+    <a href="settings.html">Website Settings</a>
+    <a href="plans.html">Manage Plans</a>
+    <a href="support.html">Support Contacts</a>
+    <a href="users.html">Users & Passwords</a>
+  </nav>
+  <p>Welcome to the admin panel. Use the menu above to manage the website.</p>
+</body>
+</html>
+```
+
+---
+
+2. `settings.html` (Website Settings)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Website Settings</title>
+</head>
+<body>
+  <h1>Website Settings</h1>
+  <nav><a href="index.html">Dashboard</a>
+    <a href="plans.html">Manage Plans</a>
+    <a href="support.html">Support Contacts</a>
+    <a href="users.html">Users & Passwords</a>
+  </nav>
+  
+  <label>Website Name:</label><br>
+  <input type="text" id="websiteName" /><br><br>
+  
+  <label>Theme Color:</label><br>
+  <input type="color" id="themeColor" /><br><br>
+  
+  <label>Pages (Comma separated):</label><br>
+  <input type="text" id="pages" /><br><br>
+  
+  <button onclick="saveSettings()">Save Settings</button>
+  
+  <script>
+    // Load settings from localStorage
+    document.getElementById('websiteName').value = localStorage.getItem('websiteName') || 'Airoplane Investment';
+    document.getElementById('themeColor').value = localStorage.getItem('themeColor') || '#25D366';
+    document.getElementById('pages').value = localStorage.getItem('pages') || 'Home,Plans,Support,Contact';
+    
+    function saveSettings() {
+      localStorage.setItem('websiteName', document.getElementById('websiteName').value);
+      localStorage.setItem('themeColor', document.getElementById('themeColor').value);
+      localStorage.setItem('pages', document.getElementById('pages').value);
+      alert('Settings saved!');
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+3. `plans.html` (Manage Plans)
+
+```html<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manage Plans</title>
+</head>
+<body>
+  <h1>Manage Investment Plans</h1>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="settings.html">Website Settings</a>
+    <a href="support.html">Support Contacts</a>
+    <a href="users.html">Users & Passwords</a>
+  </nav>
+
+  <textarea id="plansData" rows="10" cols="50"></textarea><br>
+  <button onclick="savePlans()">Save Plans</button>
+  
+  <script>
+    const defaultPlans = 
+`Plan 1 - Rs. 600, Return: Rs. 150/day
+Plan 2 - Rs. 1200, Return: Rs. 350/day
+Plan 3 - Rs. 2400, Return: Rs. 700/day
+Plan 4 - Rs. 4800, Return: Rs. 1400/day`;
+    
+    document.getElementById('plansData').value = localStorage.getItem('investmentPlans') || defaultPlans;
+
+    function savePlans() {
+      localStorage.setItem('investmentPlans', document.getElementById('plansData').value);
+      alert('Plans saved!');
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+4. `support.html` (Support Contacts)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Support Contacts</title>
+</head>
+<body>
+  <h1>Support Contacts</h1>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="settings.html">Website Settings</a>
+    <a href="plans.html">Manage Plans</a><a href="users.html">Users & Passwords</a>
+  </nav>
+  
+  <label>WhatsApp Number:</label><br>
+  <input type="text" id="waNumber" placeholder="923001234567" /><br><br>
+  
+  <label>Telegram Channel:</label><br>
+  <input type="text" id="tgChannel" placeholder="YourTelegramChannel" /><br><br>
+  
+  <button onclick="saveSupport()">Save Contacts</button>
+  
+  <script>
+    document.getElementById('waNumber').value = localStorage.getItem('whatsappNumber') || '923001234567';
+    document.getElementById('tgChannel').value = localStorage.getItem('telegramChannel') || 'YourTelegramChannel';
+
+    function saveSupport() {
+      localStorage.setItem('whatsappNumber', document.getElementById('waNumber').value);
+      localStorage.setItem('telegramChannel', document.getElementById('tgChannel').value);
+      alert('Support contacts saved!');
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+5. `users.html` (Users and Password Change)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Users & Passwords</title>
+</head>
+<body>
+  <h1>Users & Passwords</h1>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="settings.html">Website Settings</a>
+    <a href="plans.html">Manage Plans</a>
+    <a href="support.html">Support Contacts</a>
+  </nav><label>Username:</label><br>
+  <input type="text" id="username" disabled /><br><br>
+  
+  <label>Change Password:</label><br>
+  <input type="password" id="password" /><br><br>
+  
+  <button onclick="changePassword()">Change Password</button>
+
+  <script>
+    // For demo, store username and password in localStorage (In real apps use backend and encryption)
+    if(!localStorage.getItem('username')) localStorage.setItem('username', 'admin');
+    if(!localStorage.getItem('password')) localStorage.setItem('password', 'admin123');
+
+    document.getElementById('username').value = localStorage.getItem('username');
+
+    function changePassword() {
+      const pwd = document.getElementById('password').value;
+      if(pwd.length < 4){
+        alert('Password should be at least 4 characters.');
+        return;
+      }
+      localStorage.setItem('password', pwd);
+      alert('Password changed successfully!');
+      document.getElementById('password').value = '';
+    }
+  </script>
+</body>
+</html>
+```
+-
